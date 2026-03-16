@@ -26,12 +26,38 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📝 Document Your Experience
 
 - [ ] Describe the game's purpose.
+The game is a guessing game. It generates a random number depending on difficulty, giving you x amount of attempts. You have to guess the secret number in x amount of attempts using the clues the game gives you after each attempt.
 - [ ] Detail which bugs you found.
+Incorrect number ranges for difficulties
+
+Wrong directional hints for guesses
+
+Score increased on incorrect guesses
+
+Inconsistent attempt limits per difficulty
+
+Weak input validation for guesses
+
+Faulty logic causing incorrect responses
 - [ ] Explain what fixes you applied.
+
+Fixed difficulty ranges in get_range_for_difficulty
+
+Corrected guess comparison logic in check_guess
+
+Removed score increase for wrong guesses
+
+Standardized attempt limits using attempt_limit_map
+
+Improved input validation in parse_guess
+
+Removed faulty logic to ensure correct feedback
 
 ## 📸 Demo
 
 - [ ] [Insert a screenshot of your fixed, winning game here]
+
+![alt text](image.png)
 
 ## 🚀 Stretch Features
 

@@ -1,13 +1,13 @@
 import random
 import streamlit as st
 
-def get_range_for_difficulty(difficulty: str):
+def get_range_for_difficulty(difficulty: str): #Wrong range
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
         return 1, 50
     if difficulty == "Hard":
-        return 1, 100
+        return 1, 100 
     return 1, 100
 
 
@@ -29,7 +29,7 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-def check_guess(guess, secret):
+def check_guess(guess, secret): #Fixed, giving the right direction when you input a guess
     try:
         guess = int(guess)
     except ValueError:
@@ -50,9 +50,7 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
             points = 10
         return current_score + points
 
-    if outcome == "Too High":
-        if attempt_number % 2 == 0:
-            return current_score + 5
+    if outcome == "Too High": #Removed adding +5 for a wrong guess
         return current_score - 5
 
     if outcome == "Too Low":
@@ -73,7 +71,7 @@ difficulty = st.sidebar.selectbox(
     index=1,
 )
 
-attempt_limit_map = {
+attempt_limit_map = { #Attempt limit was not consistent earlier
     "Easy": 5,
     "Normal": 6,
     "Hard": 8,
@@ -104,14 +102,14 @@ if "history" not in st.session_state:
 st.subheader("Make a guess")
 
 
-with st.expander("Developer Debug Info"):
+with st.expander("Developer Debug Info"): 
     st.write("Secret:", st.session_state.secret)
     st.write("Attempts:", st.session_state.attempts)
     st.write("Score:", st.session_state.score)
     st.write("Difficulty:", difficulty)
     st.write("History:", st.session_state.history)
-
-st.info(
+#properly displays the right range for the diff
+st.info( 
 f"Guess a number between {low} and {high}. "
 f"Attempts left: {attempt_limit - st.session_state.attempts}"
         )
@@ -128,7 +126,7 @@ with col2:
     new_game = st.button("New Game 🔁")
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
-
+#Reset game status when game is done and player wants to play again
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
@@ -143,7 +141,7 @@ if st.session_state.status != "playing":
     else:
         st.error("Game over. Start a new game to try again.")
     st.stop()
-
+#removed modulo 2 so it gave out the correct response
 if submit:
     ok, guess_int, err = parse_guess(raw_guess)
 
